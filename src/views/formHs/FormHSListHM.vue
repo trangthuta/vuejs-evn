@@ -1,9 +1,5 @@
 <template>
     <div class="container-add">
-      <p class="stick"></p>
-      <div class="themmoi">
-          <button class="Add-Hoso">Thêm mới</button>
-      </div>
       <h3>Năm kế hoạch: 2023</h3>
       <div class="table-content">
           <table class="home-table">
@@ -81,7 +77,7 @@
           box-sizing: border-box;
       }
       .container-add{
-          margin: 0 50px;
+          margin: 0 30px;
       }
       .themmoi{
           margin: 15px 0;

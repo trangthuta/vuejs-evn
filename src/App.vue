@@ -43,7 +43,8 @@ export default {
   --bg-color: #eceef7;
   --bg-color-font: #0f0e9f;
   --color-solid: #bdc3c7;
-  --color-border-form : #4990EF
+  --color-border-form : #4990EF ;
+  --color-font-form : #586B8B
 }
 * {
   margin: 0;
