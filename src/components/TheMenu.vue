@@ -5,7 +5,7 @@
     </div>
     <div class="menu-list">
       <router-link
-        to="/home"
+        to="/"
         v-for="item in menuItems"
         :key="item.id"
         class="menu-level1 menu-item"

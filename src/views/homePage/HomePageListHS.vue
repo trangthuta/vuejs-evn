@@ -30,15 +30,11 @@
         <input type="date" />
       </td>
       <td>
-        <select @change="filterHoSo">
-          <option
-            v-for="option in trangThaiOptions"
-            :key="option.index"
-            :value="option.value"
-
-          >
-            {{ option.text }}</option
-          >
+        <select v-model="status" @change="filterHoSo">
+          <option disabled value="">Chọn</option>
+          <option>Tất cả</option>
+          <option>Khởi tạo</option>
+          <option>Đã hủy</option>
         </select>
       </td>
       <td>
@@ -90,7 +86,9 @@ export default {
   name: "HomePageListHS",
   props: ["trangThaiOptions", "listHs"],
   data() {
-     status : "tatca"
+    return {
+      status: ""
+    };
   },
   methods: {
     seletedHoSoDeleted(e) {
@@ -100,10 +98,10 @@ export default {
       const date = new Date(e).toLocaleDateString("vi-VI");
       return `${date}`;
     },
-    filterHoSo (e) {
-      this.status = e.target.value
-      console.log(this.status);
-      // if()
+    filterHoSo() {
+      this.$emit('filterHoSo' , this.status)
+    
+    
     }
   }
 };

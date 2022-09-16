@@ -117,10 +117,10 @@
         </tr>
       </table>
     </form>
-    <button class="form-button-add">
+    <button class="form-button-add" @click="addHoSo">
       <img src="../../assets/Plus.png" alt="" class="home-button-add-icon" />
       <p>
-        Thêm mới
+        Lưu
       </p>
     </button>
 
@@ -155,6 +155,17 @@ export default {
         console.log(this.filePhuLuc);
       }
     },
+    addHoSo() {
+      // axios
+      //   .post(`/HoSoScl`)
+      //   .then(response => {
+      //     this.listHs = response.data;
+      //     console.log(response.data);
+      //   })
+      //   .catch(e => {
+      //     console.log(e);
+      //   });
+    }
   },
 };
 </script>

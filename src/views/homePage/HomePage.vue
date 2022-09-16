@@ -25,9 +25,9 @@
       </div>
     </div>
     <HomePageListHS
-      :trangThaiOptions="trangThaiOptions"
       :listHs="listHs"
       @seletedHoSoDeleted="deleteHoSo"
+      @filterHoSo = "filterHoSo"
     />
   </div>
 </template>
@@ -41,20 +41,6 @@ export default {
 
   data() {
     return {
-      trangThaiOptions: [
-        {
-          text: "Tất cả",
-          value: "tatca"
-        },
-        {
-          text: "Khởi tạo",
-          value: "khoitao"
-        },
-        {
-          text: "Đã hủy",
-          value: "huy"
-        }
-      ],
       listHs: []
     };
   },
@@ -81,6 +67,18 @@ export default {
         .catch(e => {
           console.log(e);
         });
+    },
+    filterHoSo(e) {
+      const newArray = [...this.listHs]
+      if(e==="Tất cả") {
+        this.listHs = newArray
+      }
+      else {
+        this.listHs = newArray.filter(item => item.trangThai === e)
+      }
+      console.log(this.listHs);
+      // if(e ==="Tất cả") return
+      // this.listHs = this.listHs.filter(item => item.trangThai === e)
     }
   },
   created() {
