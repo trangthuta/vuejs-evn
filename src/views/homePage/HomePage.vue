@@ -1,6 +1,6 @@
 <template>
   <div class="home space-left ">
-     <div class="home-header home-flex-box">
+    <div class="home-header home-flex-box">
       <p class="title-page">
         Hồ sơ danh mục SCL
       </p>
@@ -11,39 +11,37 @@
           class="home-input-search"
         />
         <div class="home-flex-box">
-         
-            <button class="home-button-add">
-              <router-link to="/themmoihoso" class="home-flex-box">
+          <button class="home-button-add">
+            <router-link to="/themmoihoso" class="home-flex-box">
               <img
-              src="../../assets/Plus.png"
-              alt=""
-              class="home-button-add-icon"
-            />
-            Thêm mới
+                src="../../assets/Plus.png"
+                alt=""
+                class="home-button-add-icon"
+              />
+              Thêm mới
             </router-link>
           </button>
-          
         </div>
-    
+      </div>
     </div>
-     </div>
-    <HomePageListHS :trangThaiOptions = "trangThaiOptions"/>
-
+    <HomePageListHS
+      :trangThaiOptions="trangThaiOptions"
+      :listHs="listHs"
+      @seletedHoSoDeleted="deleteHoSo"
+    />
   </div>
 </template>
 
 <script>
-  import HomePageListHS from './HomePageListHS.vue'
+import HomePageListHS from "./HomePageListHS.vue";
+import axios from "axios";
 export default {
   name: "HomePage",
-  components : {HomePageListHS},
+  components: { HomePageListHS },
+
   data() {
     return {
       trangThaiOptions: [
-        {
-          text: "Chọn",
-          value: "tatca"
-        },
         {
           text: "Tất cả",
           value: "tatca"
@@ -53,27 +51,40 @@ export default {
           value: "khoitao"
         },
         {
-          text: "Hoàn thành",
-          value: "hoanthanh"
-        },
-        {
-          text: "Lãnh đạo đơn vị phê duyệt",
-          value: "pheduyet"
-        },
-        {
-          text: "Thẩm định hồ sơ",
-          value: "thamdinhhoso"
-        },
-        {
-          text: "Tờ trình TCT",
-          value: "totrinh"
-        },
-        {
           text: "Đã hủy",
-          value: "thamdinhhoso"
+          value: "huy"
         }
-      ]
+      ],
+      listHs: []
     };
+  },
+  methods: {
+    callApi() {
+      axios
+        .get(`/HoSoScl`)
+        .then(response => {
+          this.listHs = response.data;
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    deleteHoSo(e) {
+      console.log(e.id);
+      axios
+        .delete(`/HoSoScl/${e.id}`)
+        .then(response => {
+          this.callApi()
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+  },
+  created() {
+    this.callApi()
   }
 };
 </script>
@@ -96,7 +107,7 @@ export default {
   border: none;
 }
 .home-button-add:hover {
-  background-color : red
+  background-color: red;
 }
 .home-button-add-icon {
   margin-right: 10px;
@@ -111,8 +122,7 @@ export default {
   border-radius: 4px;
 }
 a {
-   text-decoration: none;
-   color: #fff;
+  text-decoration: none;
+  color: #fff;
 }
-
 </style>

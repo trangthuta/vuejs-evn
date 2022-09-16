@@ -1,5 +1,5 @@
- <template>
-   <table class="home-table">
+<template>
+  <table class="home-table">
     <tr>
       <th>Thao Tác</th>
       <th>Mã hồ sơ</th>
@@ -30,8 +30,15 @@
         <input type="date" />
       </td>
       <td>
-        <select>
-          <option v-for="option in trangThaiOptions " :key="option.index" :value="option.value"> {{option.text}}</option>
+        <select @change="filterHoSo">
+          <option
+            v-for="option in trangThaiOptions"
+            :key="option.index"
+            :value="option.value"
+
+          >
+            {{ option.text }}</option
+          >
         </select>
       </td>
       <td>
@@ -42,33 +49,73 @@
       </td>
     </tr>
 
-    <!-- <tr key={HoSo.Id}>
-                <td className="home-table-function">{HoSo.ThaoTac}</td>
-                <td>{HoSo.MaHS}</td>
-                <td>{HoSo.TenHS}</td>
-                <td>{HoSo.DVTH}</td>
-                <td>{HoSo.CVTH}</td>
-                <td>{HoSo.HanThucHien}</td>
-                <td>{HoSo.TrangThai}</td>
-                <td>{HoSo.DVTD}</td>
-                <td>{HoSo.CVTD}</td>
-              </tr> -->
+    <tr v-for="hoso in listHs" :key="hoso.id">
+      <td>
+        <i
+          class="fa-solid fa-trash home-table-icon"
+          @click="seletedHoSoDeleted(hoso)"
+        ></i>
+        <i class="fa-solid fa-pen-to-square home-table-icon"></i>
+      </td>
+      <td>
+        {{ hoso.id }}
+      </td>
+      <td>
+        {{ hoso.tenHoSo }}
+      </td>
+      <td>
+        {{ hoso.donViThucHien }}
+      </td>
+      <td>
+        {{ hoso.chuyenVienThucHien }}
+      </td>
+      <td>
+        {{ formatTime(hoso.hanThucHien) }}
+      </td>
+      <td>
+        {{ hoso.trangThai }}
+      </td>
+      <td>
+        {{ hoso.donViThucHien }}
+      </td>
+      <td>
+        {{ hoso.chuyenVienThucHien }}
+      </td>
+    </tr>
   </table>
- </template>
- 
- <script>
- export default {
- name : 'HomePageListHS',
- props : ['trangThaiOptions']
- }
- </script>
- 
- <style scoped>
- table {
+</template>
+
+<script>
+export default {
+  name: "HomePageListHS",
+  props: ["trangThaiOptions", "listHs"],
+  data() {
+     status : "tatca"
+  },
+  methods: {
+    seletedHoSoDeleted(e) {
+      this.$emit("seletedHoSoDeleted", e);
+    },
+    formatTime(e) {
+      const date = new Date(e).toLocaleDateString("vi-VI");
+      return `${date}`;
+    },
+    filterHoSo (e) {
+      this.status = e.target.value
+      console.log(this.status);
+      // if()
+    }
+  }
+};
+</script>
+
+<style scoped>
+table {
   border-collapse: collapse;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.7);
   margin-top: 12px;
+  text-align: center;
 }
 
 th,
@@ -92,4 +139,13 @@ select {
   outline: none;
   background-color: #f9fafd;
 }
- </style>
+.home-table-icon {
+  font-size: 15px;
+}
+.home-table-icon:first-child {
+  margin-right: 5px;
+}
+.home-table-icon:hover {
+  color: red;
+}
+</style>

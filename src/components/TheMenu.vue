@@ -50,7 +50,7 @@ export default {
   top:0 ;
   z-index : 1999;
   width: 250px;
-  height: 100vh;
+  height: 100%;
   padding: 15px 0;
   background-color: white;
   text-align: center;
