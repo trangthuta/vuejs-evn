@@ -54,7 +54,7 @@
         <i class="fa-solid fa-pen-to-square home-table-icon"></i>
       </td>
       <td>
-        {{ hoso.id }}
+        {{ hoso.maHoSo }}
       </td>
       <td>
         {{ hoso.tenHoSo }}
@@ -84,7 +84,7 @@
 <script>
 export default {
   name: "HomePageListHS",
-  props: ["trangThaiOptions", "listHs"],
+  props: [ "listHs"],
   data() {
     return {
       status: ""

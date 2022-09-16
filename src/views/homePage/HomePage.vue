@@ -69,16 +69,22 @@ export default {
         });
     },
     filterHoSo(e) {
-      const newArray = [...this.listHs]
+      
+      this.callApi()
+      
       if(e==="Tất cả") {
-        this.listHs = newArray
+        this.callApi()
+        
       }
       else {
-        this.listHs = newArray.filter(item => item.trangThai === e)
+        this.listHs = this.listHs.filter(item => item.trangThai === e)
+        // this.listHs = newArray
+       
+       
+     
+
       }
-      console.log(this.listHs);
-      // if(e ==="Tất cả") return
-      // this.listHs = this.listHs.filter(item => item.trangThai === e)
+    //   console.log(this.listHs);
     }
   },
   created() {
