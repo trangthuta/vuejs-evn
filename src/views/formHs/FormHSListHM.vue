@@ -56,10 +56,10 @@
                   </tr> -->
       </table>     
       </div>
-      <div class="list-button">
+      <!-- <div class="list-button">
           <button class="btn" id="luu">Lưu</button>
           <button class="btn" id="dong">Đóng</button>
-      </div>
+      </div> -->
     </div>
   </template>
   

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <TheHeaderVue />
-    <TheMenuVue :menuItems="menuItems" />
+    <!-- <TheHeaderVue /> -->
+    <!-- <TheMenuVue :menuItems="menuItems" /> -->
     <router-view />
   </div>
 </template>
