@@ -26,22 +26,42 @@
     </div>
     <HomePageListHS
       :listHs="listHs"
-      @seletedHoSoDeleted="deleteHoSo"
-      @filterHoSo = "filterHoSo"
+      @seletedHoSoDeleted="getIdHSDeleteHoSo"
     />
+    <ConfirmPopupVue v-if="isShow">
+      <template v-slot:msg>
+        <i class="fa-solid fa-trash popup-icon"></i>
+        <p class="popup-title">
+          Bạn có chắn chắn muốn xóa hạng mục SCL đã chọn không?
+        </p>
+      </template>
+      <template v-slot:button1>
+        <p @click="isShow=false">
+          Hủy
+        </p>
+      </template>
+      <template v-slot:button2>
+       <p @click="deleteHoSo">
+        Đồng ý
+       </p>
+      </template>
+    </ConfirmPopupVue>
   </div>
 </template>
 
 <script>
 import HomePageListHS from "./HomePageListHS.vue";
+import ConfirmPopupVue from "../../components/ConfirmPopup.vue";
 import axios from "axios";
 export default {
   name: "HomePage",
-  components: { HomePageListHS },
+  components: { HomePageListHS, ConfirmPopupVue },
 
   data() {
     return {
-      listHs: []
+      listHs: [],
+      isShow :false,
+      id : 0
     };
   },
   methods: {
@@ -56,39 +76,37 @@ export default {
           console.log(e);
         });
     },
-    deleteHoSo(e) {
-      console.log(e.id);
+    getIdHSDeleteHoSo(e) {
+      this.isShow = true
+      this.id = e.id
+      console.log('id',this.id);
+    },
+    deleteHoSo(){
       axios
-        .delete(`/HoSoScl/${e.id}`)
+        .delete(`/HoSoScl/${this.id}`)
         .then(response => {
-          this.callApi()
+          this.callApi();
           console.log(response.data);
+          this.isShow = false
         })
         .catch(e => {
           console.log(e);
         });
     },
     filterHoSo(e) {
-      
-      this.callApi()
-      
-      if(e==="Tất cả") {
-        this.callApi()
-        
-      }
-      else {
-        this.listHs = this.listHs.filter(item => item.trangThai === e)
-        // this.listHs = newArray
-       
-       
-     
+      this.callApi();
 
+      if (e === "Tất cả") {
+        this.callApi();
+      } else {
+        this.listHs = this.listHs.filter(item => item.trangThai === e);
+        // this.listHs = newArray
       }
-    //   console.log(this.listHs);
+      //   console.log(this.listHs);
     }
   },
   created() {
-    this.callApi()
+    this.callApi();
   }
 };
 </script>
